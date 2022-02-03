@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import {BasicTabs} from '../components/Tabs'
+import { useNavigate } from "react-router-dom";
 
 
 const Search = styled("div")(({ theme }) => ({
@@ -55,6 +56,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export const Navbar=()=> {
+    let navigate = useNavigate();
+
 
     const [search , setSearch] = React.useState('')
     const [enter , setEnter] = React.useState(0)
@@ -63,8 +66,15 @@ export const Navbar=()=> {
     const searching =(event)=>{
         event.preventDefault();
         setEnter(1);
-        console.log(search)
+        // console.log(search)
+        // history.push(/products${history.location.search}&sort=${sortWith})
 
+        // console.log(navigate)
+        navigate({
+            pathname:'/',
+            search: '?searchig='+search,
+
+        })
     }
 
     return (
@@ -97,7 +107,7 @@ export const Navbar=()=> {
             </Box>
 
             {
-               enter === 0 ? null : <BasicTabs searchKey={search}/>
+               enter === 0 ? <h1 className="text-muted" >Search for anything</h1> : <BasicTabs searchKey={search}/>
             }
 
 
